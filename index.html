@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>オーダー縫製 | 生地もサイズもお好きに</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@400;500;700;900&display=swap');
+  :root{--rose:#cb7f69;--rose-deep:#6f3f2c;--mustard:#d7b63d;--cream:#f8ecba;--paper:#fffdf6;--ink:#3a2a1e;--ink-soft:#6b5a44;--line:#e3d9a9;}
+  *{box-sizing:border-box;}
+  body{margin:0;background:var(--cream);color:var(--ink);font-family:'Zen Kaku Gothic New', sans-serif;line-height:1.85;}
+  .wrap{max-width:640px;margin:0 auto;padding:0 24px;}
+  h1,h2,h3{font-family:'Zen Kaku Gothic New', sans-serif;margin:0;color:var(--rose-deep);}
+  .logo-strip{background:var(--rose-deep);padding:44px 20px 34px;text-align:center;}
+  .logo-strip img{max-width:78%;height:auto;}
+  .hero{background:var(--rose-deep);color:var(--cream);padding:56px 24px 48px;}
+  .hero-eyebrow{font-size:14px;letter-spacing:.08em;color:var(--mustard);margin-bottom:14px;}
+  .hero h1{color:var(--cream);font-size:30px;line-height:1.5;font-weight:700;}
+  .hero .quotes{margin-top:22px;display:flex;flex-direction:column;gap:8px;}
+  .hero .quotes span{display:block;font-size:14px;color:rgba(248,236,186,.85);background:rgba(248,236,186,.08);padding:10px 14px;border-left:2px solid var(--mustard);}
+  .hero p{margin-top:18px;font-size:14.5px;color:rgba(248,236,186,.88);}
+  section{padding:48px 0;}
+  .section-head{margin-bottom:24px;}
+  .section-head .tag{display:inline-block;font-size:13px;color:var(--rose-deep);border-bottom:1px solid var(--rose-deep);padding-bottom:2px;margin-bottom:12px;}
+  .section-head h2{font-size:22px;font-weight:700;}
+  .lead{color:var(--ink-soft);font-size:14.5px;}
+  .lead + .lead{margin-top:10px;}
+  .gallery{margin-top:8px;display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+  .gallery figure{margin:0;position:relative;overflow:hidden;border:1px solid var(--line);background:var(--line);}
+  .gallery figure.wide{grid-column:1 / -1;}
+  .gallery img{width:100%;height:100%;display:block;object-fit:cover;}
+  .gallery figure.tall{aspect-ratio:3/4;}
+  .gallery figure.wide{aspect-ratio:16/9;}
+  .gallery figcaption{position:absolute;left:0;right:0;bottom:0;background:linear-gradient(to top, rgba(111,63,44,.82), rgba(111,63,44,0));color:var(--cream);font-size:12px;padding:22px 10px 8px;}
+  .note-line{margin-top:16px;font-size:13.5px;color:var(--ink-soft);}
+  .why-list{margin-top:24px;display:flex;flex-direction:column;gap:20px;}
+  .why-item{display:flex;gap:16px;padding-bottom:20px;border-bottom:1px solid var(--line);}
+  .why-item:last-child{border-bottom:none;}
+  .why-mark{font-family:'Zen Kaku Gothic New',sans-serif;font-weight:700;font-size:16px;color:var(--rose-deep);flex-shrink:0;width:34px;}
+  .why-item h3{font-size:16px;font-weight:500;margin-bottom:6px;color:var(--ink);}
+  .why-item p{font-size:14px;color:var(--ink-soft);margin:0;}
+  .price-table{width:100%;border-collapse:collapse;margin-top:8px;font-size:14px;background:var(--paper);}
+  .price-table th,.price-table td{text-align:left;padding:13px 10px;border-bottom:1px solid var(--line);}
+  .price-table th{font-weight:500;color:#a3915f;font-size:12px;letter-spacing:.04em;}
+  .price-table td.amount{text-align:right;font-family:'Zen Kaku Gothic New',sans-serif;font-weight:700;color:var(--rose-deep);white-space:nowrap;}
+  .price-note{font-size:12.5px;color:#a3915f;margin-top:10px;}
+  .option-grid{margin-top:8px;display:grid;grid-template-columns:1fr auto;font-size:14px;background:var(--paper);}
+  .option-grid .row{display:contents;}
+  .option-grid .name,.option-grid .price{padding:11px 10px;border-bottom:1px solid var(--line);}
+  .option-grid .price{text-align:right;color:var(--rose-deep);font-family:'Zen Kaku Gothic New',sans-serif;font-weight:700;white-space:nowrap;}
+  .discount-box{margin-top:24px;background:var(--rose-deep);color:var(--cream);padding:18px 20px;font-size:14px;display:flex;justify-content:space-between;align-items:center;gap:12px;}
+  .discount-box .num{font-family:'Zen Kaku Gothic New',sans-serif;font-weight:700;color:var(--mustard);font-size:18px;}
+  .info-cards{margin-top:24px;display:flex;flex-direction:column;gap:14px;}
+  .info-card{border:1px solid var(--line);background:var(--paper);padding:18px 20px;}
+  .info-card h3{font-size:15px;font-weight:500;margin-bottom:8px;display:flex;align-items:baseline;gap:8px;color:var(--ink);}
+  .info-card h3::before{content:"";width:5px;height:5px;background:var(--mustard);border-radius:50%;display:inline-block;}
+  .info-card p{font-size:13.5px;color:var(--ink-soft);margin:0;}
+  .info-card p + p{margin-top:8px;}
+  .flow{margin-top:24px;position:relative;padding-left:8px;}
+  .flow-step{display:flex;gap:18px;padding-bottom:30px;position:relative;}
+  .flow-step:last-child{padding-bottom:0;}
+  .flow-num{flex-shrink:0;width:32px;height:32px;border:1px solid var(--rose-deep);color:var(--rose-deep);border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'Zen Kaku Gothic New',sans-serif;font-weight:700;font-size:12px;background:var(--cream);}
+  .flow-body h3{font-size:15px;font-weight:500;margin-bottom:4px;color:var(--ink);}
+  .flow-body p{font-size:13.5px;color:var(--ink-soft);margin:0;}
+  .flow-body p + p{margin-top:6px;}
+  .flow-body ul{margin:6px 0 0;padding-left:18px;font-size:13.5px;color:var(--ink-soft);}
+  .flow-body li{margin-bottom:2px;}
+  .policy{background:var(--paper);border:1px solid var(--line);padding:22px 22px;margin-top:24px;font-size:13.5px;color:var(--ink-soft);}
+  .policy dt{font-weight:500;color:var(--ink);margin-top:14px;}
+  .policy dt:first-child{margin-top:0;}
+  .policy dd{margin:4px 0 0;}
+  .cta{background:var(--rose-deep);color:var(--cream);padding:52px 24px 60px;text-align:center;}
+  .cta h2{color:var(--cream);font-size:21px;margin-bottom:14px;}
+  .cta p{color:rgba(248,236,186,.8);font-size:14px;margin-bottom:26px;}
+  .cta-button{display:inline-block;background:var(--mustard);color:var(--rose-deep);padding:15px 36px;font-size:15px;font-weight:700;text-decoration:none;}
+  .cta-sub{margin-top:18px;font-size:12px;color:rgba(248,236,186,.55);}
+  footer{text-align:center;padding:24px;font-size:12px;color:#a3915f;background:var(--cream);}
+</style>
+</head>
+<body>
+<div class="logo-strip">
+  <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAArwAAADqCAMAAAB3LGayAAAAflBMVEXi296ysrJ9fX3/sf//urqy7e3/AAD//3//f//u7e5//3+//78A/wB/fwB/f/9tkW2/f7+qqv//f3///wDf378AAAD8/Pz+/v78/Pz6+vr8/Pz7+/v8+/v8/Pzq6OnX19cAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAChpeV/AAAAIHRSTlMTAwIDAwUBAgJSAgQBAgIHBAMCAQgA/ALPL69Pb48QCHFPMNcAAC2rSURBVHja7Z2Jmqs4j4ZJdf/77DMq7+T+73LCErAtyTbEEEjgebr7dJ2qJAWvZVnLpwau67pOejXXLbiuC97ruq4L3uu6rgve67rgva7ruuC9ruu64P3qS1y34IL3I+AV4oL3uk4Eb3/92WE7/PGC97pOBW/4vxe813UadgGUdVpK7UwLF7zXdR52AYz+nS7bwgXvdZ3F7CoP3ccl1dfSe8F7MrMr3G98fS29F7wnM7vy95eiV1RdIRe817UBu7/UJdtqxIkzhd8ueI+M683jqPuj+aUvV8n09q/y/GfTZVhlkVzwHjmsMFncASyO3YfjUAXeLgbnpNRWbJa6i4h9DeAL3mOi2/2rVY9rADdpd7uAWQ1b6QUyzEaub/+irbLWPS5rBLyU4b7gPaTV7U3g6NA6k2X3V95fZy14BwVbFE50KW3jvDOn7rMsF7wfZXZNEFSQ9gZC/aau18NlAqz/gtqp2pEHMtDX/27igvdj2G10/Ii1EjIJr3kV3ojdwSxWPbn9AL156GYtvRe8x2OXesRSJ9l92eml39WJevQK0Wp25d3FBe/HskvhHAfLXntXQb9JtezdwwPRtfeNC96TsutUVXhvejNnmnVLXqb3gvdg7Koydg3UhPfGkyUbqBNCFsnfp1nj9l7wHitG9hdZxK6CP1Q9nze5ZHQm5FCWLcvtKPqvF7ynN7y2kF0hTE149cqzoBDNgG0O4Kw7tMZxuOA9lOFtC32GByauWqgs56twUE5fb9r7LfrSYnjl7YL3G05rrrdzstq5Km14OdP7zPR2/UjdpZ1VguU35/Ou+g0ueI9keDMUjTZK4GRxVxRZzfA6XeD1Pr7SGi1RvkwBndkIPCJtjbH699Uj5wXvkQxvG6e4jKUd3hjzF2oikQfiusKK0G9AXD1+qLX02VLaFm4Yd+9tusRzd0Xrb3lC5IL3SPA2MUVERlX3ToOKveCm5PUZR1tiF9eld3QRVV+EGBqiqKffLR6WWvZJZ0HsHupD4RXV6pfP5PIOv68kDO899i8E3EpMbInXMHjUInkazEVFHK4VGx7dY6X4wTX9WsCkOQW58TMQHwqvxSY2hlcTNqv/1vXw2riuvXMKZALe2NGg/PL47Z6Wx7dDYbjPfRy8A7l39fD+Hpcxze1zRWIoeFEUyxChhiF2VifWMC4ZlXj5kmi07HuYML63YBNVr/ntze4w8t4X/t6fPvZi/UOtdOrnQ/Gl3Abk8/ZfdFT8Ye2bhivBDFhZvju5LIUtG+IzifAKX0gfGV6xzHMdNp670cSB4LZlg/bPuzzsmAoLAhk5TXyt/0ZR6U0V4awIXyCtMKBHdxKdEt7pd/+5UX4sdSx+7DB8OGa7Hiu8170vVKZw/sBAiwMQQlSDVw4tRw511nt9oKKE3S5lljW9Z3Abht+iNUM2pkvF3BIdUuK5wIWVS86ztXwa1X3O7np8zhZ21MBFNk3Ge3p3nMKb9iuGN/ZVNNEu56JNs7BoUwEV7Q1eyaKN5nDwEtt/n4lhEoniKScn0z5V7ZhD9563oD2wa2Aw7X74IofgQa+Mv6DIjJugCFkBr+t+ylJnxPlVXdTj4bqztJPFfgOM/0TOiTkivI+PdCdsqFNA3uEBXmjdmpX9EjmMqe87EXeCV6BOhrhhQmXrsWLBh2XwPr6iif3fh1eHB7zplYxbsiEg310dEF7ehlryBo9bkyzblyqusJYNALn7bvTmWtUUVaYTv0jTySKosh0DWV60gA2k4HVeMY4hfq54pXbd+weDF0tyBgF34vcTxMb1u7lEV9pLkWYferNRKE2W6dAGTbcr4JWSTkfzbsOvM31eQ8XUqyS8KFi9wnNvtje7KfyIrb+zgbrsSKB/7rUarHJeit2LXve77Iq2H58tXdJbk10vvYPqH7WIH5CY+dEVFzy70UNeYYmajZ9FDop4b+lulJKlT85CJY2u/FvaXY5tUVFB2R3wPtjjz27RistGvvo9R4TWV674ZMhn0K9rBTYb74Ky7HcUvpux4NnVCDkUBn/sLjHf4kBUdPcEZc9k/hMLke0BEnGMq8ypSxhegdn9XXNzm23ZLc3EeOmbRQ9P/4gK7JY1jhlodoC39NPE/ii5F+dLZDMsOgha1BaY3tRxjWB3lVvWvJvdKSG56GfqyRxBOS1qD8tbmn2dKsyGmydIP7II3oSn4oK4W8rrpVuVuEA+2pDXdYI0b2fX9+wXs9vZnt32ab2T1ytk6eeJLaJe3NSYdAM8P18so3dOylFneFtJ2qTZkF25bPNLsquds07XV3RZtFz2CJj1ZlRWYbdwL+aEmMICkpheWeCKk1F8IN5tZUlns9kzaItjBtPvyoHUSXUPr+ryMfqlqJR/zL7Mbxd6S2KFLssuFeilc5rUTXBhED4O9gqbjIoTdXnj/9l6Z+FmqyfwL71g81epg4BWMBfi4z3+lSF6SfU3TjBhD3pv7rd4Y2ZyB1TTL2MPCWuovQSdILxegbo0A+oBwyuoIXLBqfAw8NLBdm0NUcExOQ6a7eZLlDSt3MuXVUi93qS78JPlTpEWsWsJr4Ixu7juMzKkem6hnM/SYZnzMERW4t7hMW4X08uba7e6t6DZiF3LVLh0f0kkYhUImne0OeKHtBxe75ZKsnm7S3gqk8/Fbgdv2quUqohdyuFURt2p/rIHiXqsEgsr/p4Ahg/i2VCpvDYX6azylkbMLpOBt+v7Yppt2FX07v/8xTUVNDA576m/UOPsYr9htD7dtBIq/yfNdE/MprVAaXibhFdp7+mGmimKhrMxsl+cQJRQjvdkDutG9wticzr/V/WXFxAOX3Z8DbrGxcGx4CUPa9b3uDC9hmIXn6e5lsRl6E5DPQhLYL33xGvQ7JBm87ZmskRTI7PLsSu4/IcTCDIPtCb62fDPfLVw9Ff+H4Evz9LrZ180OzkNsQmV6FdIFZ0lSvKWOaIicdCY9uP/mE8qBqG9H7zDMotDt04hGQt8O6kUQeDgzy4zYR4w9sgjHy2u6S5F5OAgiPOSE5OjrpiDRBuEUFl2iX4AzO7Nz3vyZ7YljXuZ2yiDVsPudWkqtgX3FlDgeZVSG0E0sqLlrEO2qchKK9IXin/4t7A/enkH78HZZV8nG7iW6jBxXiK/iVzXJn/M13eaXWRnyk9RueiCfAZ52KCJTgghVomR0X/xNHFEvJXY6DQ+WEFc/G0WwEtEvPBt1IbCd/yRXDxyJb3NBuyabFxHiGzhqr7/GcZZZk8q/lFVrAORCUCpOaTJw84LIb584wDu7eP004Hat4U51+msDNBSmYKRXRPXCQANr0qVmMe7fhijEAX5ZMIXF6UJ+H5wy/tLIgl/lkgWilzhanjiiI4MdtWJLbtgvEWQHvcr7b161GEIVkmm1V/32rcUZvh+B26sV50QumpKZC8/QOt7H2xG3QC9DgoK7OUad6zZ3vBqSB99WeeTXor45pWm8DM3EcvJ8R+SFEJ86brl0hLSKdJaxk6aiuOxs/2kqykBUvjGtjiZQLFFn5C3Vm+GV4i7JKuSCdHAdb2VuHClqLwh6zNoIKS1eN51XeNblOtzRGwg/jkDnOMZQaTCrT0M0hFxMTGFehNGwMBaeNe0qtSGF5/EDHDlRXZVDQGprFyBDuqUIpqECm1N4YjHmi+qDCKMr8zZvvm2mWzV4jNZ0fncXmQDAp83tYORlteiljctsw/gHZYXhW2YquSU6XVJPT5090piZdkqN0MaXlXoI2+TTy+gN/o5B6RX/PwT7V+E6Hpj2bWipvwkzQDtOETuT78qUPb97RKn+HErZkElVjDn/ggmgCWhoFUr4/A6EIvrdmrONi3tGpZJwysT6GIJMuRYAKq1ceKfoU4Z7RmmPkFoA/rCndHA21eNQXV4XWH6K2HXcq57bG4KNnAqcZL6mGWyXJ1Oxs7wPrcZwSnjs0cufMMtqhTDtUg6WgTZpAPxEeZKyDDJgga5vBdevCgThpcrps1GvhC82RBhBg5paB3vbJuFg2rwFtdmKr9GBkvVEXFW9uj0PI4MMtCM2BWR0es1EOXvMMJK5vwGGBOF1qhML9zSUG9leONnwNYZ80Wr+dJkPMcpCy8pTiBdnwnoTiaxcMfzJufaQSr1ZC5oXHsuGIpGrXCNQQgvmsPyvNmE0UWusWfKh1dt+v8q+5vKfgBXE4wBsG+G15UZ3mcN6YpoNTWELA8vlc8UZOUJ+Pty7hz1BtOreXhHUUAyz8B9f6/UZJzMdBjOi9rPd47/dQl4ycQg83n0O+EVEHkNmiVxWMi3Fb146+DVqRJNXPc63/FMjLKFWqa3SFtwcpLYJHuEb8b09kpNmfcVXsCMEnEIM56ayE0nsnjqlTRbs6nXwCpPsAeirNNAjX/MHdgIr8EAX5jqP/NUo+GanS71WzXKDlNjjFHThUZFyqBBzNINK6zhWyJpQiUeyM2fsbxQkn8OEyf9yxdPIW629Boka9aAqevNCT+ST0DmDa9KhSO56q7nIzAdUB1HxOaqoabKKnMZrmaMOVHO+BKsyaXwOq+GF0giJXXAm7ZXHtyuCCnUS33c57a86qkyvDLbWhcVilnidJCH1y0DCBdepYe7hE/d+wtCwretRi/7mMNuNgcFxXludk1zTRdFwTnuxIX3QQPZiokBbOMYj8w1pYnipiq7YgmKQ/5VL+yyIZ6Yy8NrU/GfBRxhP6fZGt44qJrrSZnbmZjycLsK3tDwAvsJcGsocRdbo2ukLuvCq7B9yz4sGW3mJd6hXuZ3ogdmb5lxVbzNcLlatFfuH1WxG3cRZ9gOcln076DXuQ3RZkTfEQ3/nWX3bjOuS6m4S0V4RRMxkqs5iG++yRjqaUsXC/khp5lRmi5hbRX96LeDtyASSgk2sDBKw6zCDL0P7CXX+iSinvjYYBngE3yieGJD4TG4JryxWbJFBTOPhaj7jIHIDOBg08q5XUZQjZSUUxvca27XlZuEG7iV7fK1A4khCBrFzfL0dvFvRSyX4CxL75zEx0NZE+HKPJX94dXLOxyGX7BpHofMokoBwhqJrIUnwpvaaxpEEd7EORlP9dsOXlIigNiUE0RoKm7G4z6OGHOEFxvDS7pReF+AMicn+hj/WeQ31IQX/k+WVpTjs/3QNFuiQ49H7eXzyawKWlaCIFM/+/uP7eAlRHMckB4l5KfWRDs/+f1T3QyRpPD3Az7BL9KntVLlUP2zP7ztuq7eRbN+sctbUAzBFfPL5fSqzaINyEsyXGcfAUcKXysAdUjAT3Tg99rq4yMYbgl6Rh3ij2jpUAPjYxzK5402Z/23JWIgpZlBuvFlaeqPq2lNn/ypgeu3jdrgqVE0Lp2uYtVU0BqdFSH6q3OhvHoOZpxaLsIbr63AUC+Kc+g3RBtieJc1JWXDaozX8PBObvn4Glc/bWFRxAwtAgfbzO+mNlgHuWyrypWGURUcTZx/kCjnKZgoHtF4gGqC+LMKy267f5yXmre8AbzxLZOiJDjMmd6wjiTLrsq2HFdi1/wuZjeFr2SEcIiYCg6iczEvRbV889VOdD+AjMuEtPkpvacbwytgkeOwpvinNLOhC9pWMjFXbDrWDQLJu7uutDuMyAFqvrqGTH+nA8tswJaaJRiLSifVhx6EPLyVwM5ruN8WaAocBV6xGt6mKJrMHRZk4rQYO3CEVdtCbZpOO5gidlkZXAtUeW9eg9MCAy+5lYX0Du93E3TERw711GxI+TzwLjiwRbe37F3YECPqcqHkPHtyyZxmW184h44nWWiFKMdXp+BNFYfHhN2DO+MF5yxbbOy/mlLPW/pHTIcg/GDztnrely1vOi88f19hrwam1+UNGmF4u2O85o97e7i7SywvbX0N0Pp5mUIJBeRgFD4rIv3oXb/e9XAsiLwGSwbPFjaxnQxeFK0q3rcFOWVXJ9QRp41Ub9497P+udpEiAotvG+4Uo3Cql2en6L3rxL7kR9p1Xlli/iYLSFJNkwm6pYPuNgyVLfIHUynemCivK7J4uBS91ckUu3ndEQX1nQaXq+4qNr5+D4gfERSs7Y3ZlS0tG5XOk41dnR7gCqWWFOk4O3gjvM0rcd41TqEu32eogIMUnNMwTTr/SSSFqtfkJE3aUnqFN7bOQsGZFN8fRTVz5hqjBnc2AFwjeOnq6OZA8IplbsMC/2LYE3ul0eI3uGGvQQFjeL0eb5diV9RmV2aoEEvxtVpqlB4uZNeQkg0qnyaTLjwkDKLdkXUGtAoWj8etCu9f5JJ+NP5UVhAPblTf7LTIMTHZM1Dsgaechg3YzZat6EJN3Tj2yA0BhlRZsCMKFegBltmufYEWplUGhW/eKvcUJ2fUomER5ZRzs/By75CsSI+ftYC0mkLtuUBl3WVZVQTSqt4Sh2GWXU0UX5Jm10I27yugQOh0ecy8LrxuPbxiCeWiPC7Mfjqq9jQITaTgfZyp75XhJWfXyaTn8PAsTayYHi3yzI3iaxV1afubKZI+LlBje6/EKSX7Vt3yLnSR/dXhCj1e3yDR8Lp2D3Y7CTWdOLWNuQjXgIgVVKLxvyKX2VS/ubMsl2Hv72KTJlNBQdvym8Wl/ycs6J183h1Gnq5wan4ViKTfQLased0JsDG7QyjFcvTOsQQtQhGmBWucW6IUuxSgc1TXprEUSWHUlYn2DUVHnH9or+w8VHBqyuDFT0yb+rOsKAvv/sYEp/VQzeFt9GuVT56/sytiV5FBsXxHvS7Ri9Vr6qLrwhtUvTWxRuBb2SX634vgVcjUrJ+Vu4Rdy0tiSRVPRFqXLWG7j6UglHFyY005Nt2toGtZ398/h83/DQ0EktsHcBvS0QY06Xw8qUeVKhuMwKSeu0n63VJWqSpmVFzJkc/MXHmvIpiO9AWAS7b8/Of2fnjvzzst9xgx/aJbaeM+dzTbvBsy7xb3bVTwdwOXJt+B8AK8RJWtKFB1mjrj/JAFzr1p4as/cUkYd7s1B7C8Pw3crdPO3Jd4ujvB2xIRyjFW32vo9ZPOIPPMHvBuzm48NiVLrynpumaC5qVJ6GiMmwLKyQpLM6aRrsn0tzRrHbHaMym8D7rg8e0BNxUm130BqVeqa7LNLqq2Qg4bpkqaR5zBijil5hSUeCx88RoEhT4gqAKfXmJdDt3IgwRE/CTjWk1p29V+5Qazh0Vtr7DW1BK6+F/mmrc3hJc8xMfVRnl6gxCpAK5frQReXN9M0OsE4OJgf90oRS2g0dT7lfLatC883i2mvldEV1Q87uUnTKAO2O3hxew6eui6y1Q8oNQEHRVLwytRHVn3rz/mXch1ffIKyMp2/AeyFGjw0pzWzpoHfT8vPN8N4K3sA1SEt2TuA6p42NJtePjhknQ5Ce5cCbv+/B2ipSnj82qf/r74Uctg5DGEuv6kxcpJyBCpzPPAu/TDVpW/LTG96cOSqjq0tYBdyJzahgM9NS1bQB5e/2WdAC8uP5+uTFYvIqpWT5dUiEUKSeeGF0SRhtlKBzNfdig36/whzKkDvgWfjqNaYCWWIB6iQHPkouDmNCdbcq5UAcdhBDI2R6LOwWhneMVKeGu40aWy4OG8Cve7WXsIDt45YOc0022PWgFCZvR9nyhm4QWjZa9UFknjyVTxaBHIkLa/L9/AZg9g86feHegVoiTolMtu2arw0iIJ7EYby5E946gIXibbzd5YQjnHv1FSwCp4Rf1s5FvdhlWVuFXofaZ7XYntBW4EhaoKr4nZvWU00wZ1PD+O6mEye6sgKJshkt5naDKDdbUOXs/7/gx413jqQtQ0vaJEmlurQc0Fl6z8V8WnETX9JeRiQrLabj6bAKKGVyw8aiRMpqSUzhb7Ddtezf7s5l2eOJYy9vFWWjpFg1Kldk5v3bgm/q6Xsju39JRwEkryFsILvEIIrEBXfA683b+G3hVP+THD+q1tKsV7x41MLZyH48Uaqsrx+pszz65IjhnI0Jsf10EZ3tAZ12LleW2bmOd74B0Kj+R41phLd1LwQmNcp3vZO3j1bP9KfA3caz6C/513gcch8Sdld2EVvFOMMduAGcGrU8osh3AZ9ob3FtTMDalIEJmcmPT6xqrQOxpxZRfPMf3V0IjaZTlNtzb7oY9Jh3UVvAXfRB6yQsNrAOsQrkBXnBpeVBCXK4WLAluyWnJL9LOZl8Pbig20yeDW/HtWWjtHDIh17NJj3APD68CfRJGPVexneHeEV4hWpxSPqXvvNkrNilXjz9UWYrxL4qELcQmSBZBtIaaD2zI8qhWEKvCRGzbqpmn2Yxc0qXOX+AG7mQ45UeYg38FuNvCygN8XIoyJjLgl5R96B53eAoxzllPzOy28VIQqJclPFSJUG19CdWTJfN4N3n4thbdZDm+Un6B0IlmV6mf9hY2EVGGTdFuz202/SVpUn+cLZxNqmV6inEulFRqlOkRPXrmFFUvaX8MYr2aL0x9/OXTwtUJNBeek0bb+IOfQhzkhvHRBF78VU1LQtbxeIlHRSR8kcm+6hfv72R0xUMY6p91je7ZDxJwpRQP1+D5VUk4Squ/6a/ZGBNKeGepfT4ASFURwimrnhNcuk6ujE2G2Um0kZXj57IXcQGdkHbpDp2iUCjRU6eF03HV5aPq/nZTTHX4+waTCUAo0xFeSJhsANnF894NX8+WH5bRXghd7vKN9+icxCEqbG4i3s0uA4+nhUr2OLnuPw0Uhf7tkUHBck7HDStwer3XIN9oW+BnEJ4P38YHlgeDFhncuDQwJkW4LiZxVuZVkVtBFDpgPkoLEkQnlGzUZy0xN51CUuA/qZG0+Dl7zBngJw+uCJoJ751TqoUPwcX/+PITZzRbDWRBeu6rvfoZlE6jrNzEwplA9gqoBNsDPqfkQt4HtrGCKvyoc2IS43RnDSxinp8F4N7smnw90fgOQf7+fAUnVy8E8myueBt2WDcFIHmeJzJyKxtg97UELZ4TXsq26nK0hTEF7EzVIIMWPuTDqAeJjZelAzUxUs8N0CvkMnHgZhnR80AcwOXLg+Y0yNkthdKKe53eEUJmCVIO028hrID1eL0QHRyK3SFQc0+svfQOB2dR5ZUf8jSqryB++p2SiE1Xp3S9JQWSwNCQrotSSnMYLewAx7fA4EoEL2PUdTZ82FQngKShil3k1HnP/u8bNjJzi3da6vTumhxXn6LMPzW6QouBDDYe8Sjs/4hNWcPCnR7lmnRGyk/gZhLEWdWj67+n4AfRrNS3fCS/JYrrz5YUBLa8Z3iPBW6I1USJJjeDNLYr5uBYftscWPxfDGyrxsVEMe0J4I2zm4Dbw9HqHbK0qZddSHu8RLa8m+uusMeZh+9C0oKfpbVJWdeiFyy4KwywErZD80AivHylLBCfOZ3khYtFGw+3pieRe21CVmlBxPsOLPq8JQnlG07uZy0KJEolKUd0/f0Znj0kXwKKokffjTqZq+v9+QngF/PQdaaigIyy5Ay+h2IUnzXPY2Ouf4YYNbysODa9Awdy45d2Q/iwHr3w6DRqZUwiM8eyBOHJ1GPy9stS1gbPBOyu4tXEp3XS+F1g0TkSldd9teE1cnsVgxM2bnFWdLGVODUWpItiNchtjO2KxW35CeLnu/64sREtfAia87tVirkK0lAN4ZI9XstLP5Pc81c5IK9jVaQAl3GqAl3jCVWaozkIPgic5J7rTwjBtxSbWd8k9+ejOoRynYNOmPkaW8bjwhkBYrEkGsa/Jw+u82sbQME93PVoFgL/YDtk6HMJMRy86y9Tep73ipPAihKMEpYUN+1GJgZaHNrxRXI+YvTV4WpTlpawukzAzjI3Fy6e33MpRTmwCXmkVXThyTnh9gCXV1jYKddbN0TJ6uHBkeDU7cWC+hcQxC8FrgBVutaQMlnjCa4O7ZXAYwT0XkWXd7G0aKd4ILzBTEY0vSl/11yUMb3tww4srw8N2MwTNE17FFYyL+GU1eTDTU9mZY4fPRBUQZIBDq3XqimeAl1qtW2VrmVDDoQ1vyxQoenqmYbpbUfAGEqVxh9WzOMqQ8SwubEFU7xDfqVXYPfxZ8FKTwLVYNc1tjeFtxMHhVWwj72x9LSVGqpgiBcoVoKp1TSG8Xg4ZnxHtD8TB0M+B98a3FIv6vyze1ywcGd0CeJGn6ij/Ff2gD6RpHvfg31CtuyiD19cxE4nmtm2u91pe+oCqgUgYV3g7tZkAz/vgjZY/lf+SSS2ypksxI5sp/zLF4ly+d4Msm9Ri8yjkm+G1XGF+8VlNfK7hjXxeS7Ir6cOTTUUffXit1WlvwPLy8WEEQ1G+8PfBq6G+k3RCw/u4AXc+zEs15xhqaJtJq0CmSyu5vJl0cTo03EX3YPeQboN/XBC1IMZPzMLR4YUwCo6Pa4bsTIngVXBLTPrJda9RuTo56ZywzcW7NFE1b300QuWL+CuV5MD5DG/s6kT7P+7nVaQZxCn3fD+nH58I30U7qyhNXyrcDPCNlrc7qQYabRXeSx9S9TEHr6Xt4Q38khDi6G94Q1BSQuOP0lREwoyC18WGFz4WXr72aSpWHzxVVWPyO14mUhyfXcDJhik3YWRSZQHDCwucXh2ITMbfrO34UFh49T7lTs0b0U1rAfTDpOTYRfHirXiYKr1VL8q2t+lHh5Xko04kMVBDM6cnGTXzU6PsmXWQ8O2kjs+BQQhDfC68Y4dEcUd3r3RY2fDeT2B4iXbReUknFUc8i62BcFEpr9dbEDaYmMe4yA74zMfHWt7u12qUXTRM6rUiBKJD5RSGt/vkTVlvjRScQrQBcmaKi8sWfTU5A4GwLhOdMJw272YTEN4N73BMXjyJ5xXPgRJ4+qs4Cbxlqg1axHK4yhdQoM5XntMsXefDestkbuweC9dcTl4q9FR22tbeAO+KOTyjRHc9w6vOYXg7ob+bLnGrALUEDgcKx6qw9c1XuuvMUe3w15IMUPDZpHiettw7dbk/vKvY7XLwot5y0SDOAu/DcSiXGvFNLzTGGJWY4Radnz34ZOvX2wCnUCKZAJz+EZ8J722RAEwVuRyiFFKdBt7ug/4jsympxEg033zmLulR+YMNtc6umb4tU7qPHN8KUFDcvAG8Z2v+QWeEpNtry2axJ4b+oXCBpg11pN8kqfdQqoVPhVesNby/Yi1wRJxSnIddyEhLO1VkVJPwPsunXaYLtpOn1mmDPxv7j4TXrGN3dc6GyBA5OBO7/a/QupKqxJRhBeY7n0Ivnl2RyVfr52j1I4jEkpmG54c3uQVqmSvZr2R4W3EueIGWC5WM1QXGEnLojlZlPkrzPnTwDCajHY9a243e41heLRIS8+4Fj1efrQad8ns7mTd/dXciHgAYSniqOYSSUKzb0EuXd8tgsL1Oakelk3nb+lwEXbkD0pz7NHgFnwHmZ3ZosZ7d8xveCb+2n33pormXkfyQlvNgv/muM27DdAgbhENmk5oY6E6JyHWpZTmXwivr7PZdQG+INrhEqJI5mbj18la4Iud8htcDNYrMRjjB8/5JNKWdDPb6cnlmdmHRO0z1wzqU94RI7dT4/yu3j0e+QatMkgePKe2jCVHOeHjYC26KPKHhBTrPEP+Ft3M5WlYzEbqVAmLeh+dhbTDrR+MIxrSb9mvmj2mv+7weNmIfl4afbtt3nKx3GvAACgNnhTe2ssgMK4n1GxL0Rtscnsw0vaT1q3Ns4FWH2TcVlPFs3mf1jtqGSB/ToMm07TRybip6XrtS4sSwbMSp4Z0SF9inMFTZAfhSqKHDaqm2NXqXVN1fyKc5eXjVfjGFN0JABaKV+gPh7eM+08x7ldoQXwx5M4b39PASnj38y6VqbdEpDB2OpUC3el4Prsudsem1GF7nlUh8HLxjHtEoxYbOmyoBQ6IUUjSfyG5ceSCpiK7fuoNH9Tgsb+NhaLXkCxvmM7iCmOXPgheiKc5FwcS1b4SHDEPzkeyGDVWOCNRa+Ttv9kQDlgIcE0vVoWgK3mgcm4EPFB1J1ofU+31TQ4Y/mV0DaLLHaA0lNxQw9DNSgSFCRGpmfIBX7RWVPA689bOKOKas4BOdhrAJWwvgFc0sJywryalMskQekofXfQm8hJ9Qod/dnbUGfdnN9Hd39zdISUmyne8aCHhzyg4RvOMsQRErVH8fvBWURmJ42w9kF8hREqyOWMdoQ2Y5iU4iFl4Z6kPqKGIhvbjkx8GbpBdqCUujvkELH+nwmrCpAlScxQ3GXVpu6JQi2uDoTL6JJEc8eDHM3wXvXHsnaj7Xoaf1A+G96VAky5L9ZS6s6i9xehl4JXqCM6yAfeDPgzcDMNSYeNm9QJCjMJ95WlOBGtQUd4jSFPPZa5g8Z5yzju1Ii31eaYyyc921lEGvxST4IAHHfb8M3moub7g/Pu73z4fDa2fC0NA2E8a4up9VXP88imJoIAauYHj1BS9Ukpbu0+7mHKMuq8DLRw+IvZ1oC9ACov6LyaSaWOBIUlb9O+AV6Vr9mu8z5EH1Z9Y0JEICDpjOdgesWplUYUtPKsOmvH6LGF67U4qtea+V3RzeoUatgQ9ll8/hKpRkG9xhqVL60goCeF2R/PQHw5ugMeU11MQX9pMSeIPvpRghEojaezuJODmOJmexNOA3bZpUgm26r58Ib9DAqoztW6b763HStWZsxCJVtOrbfPjMi0Gs916tljqMCkxV5AG72mIVt6yCunxc2t6AhNecHt4p5mUs19Quw15CMWt4cw7eMnsLeypgvO/Uizr/+riBnpSN8eVC0C0aH1g4eWV0knUErzr5gW3UjzZ5MdPHAjaBBIDX9rPWCodr4YOv8fdsNcok2lCeN9iGdMhuGAbTCxTUR9faxoK9cp9+wWaje9r9a4F+dK/AQrVVwxobvLNwy/vhVRJpPgfOaa9nOs2fCtnteq40G8JVMicMPMMq4yK2M9bz9kd8s1hQT/v8UoiKcnhvXwLvGA7EAQMX1d3qaaRF2HOhsUunF0296qtMez/Eq8XsA5Ry8/Bks4EtiBqA1/Cb8WSLIwxfAa9fdtsXdt2Cse5BW5lVWaMSaEZn54aMhAqlAMiz4XngpaQwlymgp/gtuhd/651tNakhfT683u3WLaDmSgvJlohkiU7+STpoSB2/PYxHU/lGUopwSy/H8DtZ1NQnmMfr6Y+sxMHevw1DZNh4LNSV9eYO83ZXktPfYF+5yKY2uvK3xuWGxuKbYIJDiU/gTcg6p7LT0q0u8FZbgSeEqVRLBAJS5gZlPg7XCmXVYom/8IuHh/dVhwHFgKfzG3W+5r3tEw6sesnwmjBzQJ6poGTknRWdSKRtIX1Y08P7ynhYZj/YUEcl7YMrfHh4UyKPr/Mbz7Th4soOjQr8Jq8h4cPqgqOyl/GEuGpCWxsGI+T8v0FY1B+APAQhms3obardxJVTfor4hVg2GRljoKNz6tNNbxLewQ4b0p9z2EmLK6q9QYRiTmRolBIOBkJqHCPeLFXR1DK7FT2G2ChYPGg8/P/uz3Quz3w+vCaVQLAPBxUG7UZhohtjpsWuyMSOXwLcZfnDE9pU6hsHigWq6tns6NHUuYN/LTC7si/I6S6ntVwMMFnHM/wOio1wfD68fBjMzakeVL8z8OSmTIUzkILXP72NYwllKmsRvp0+MrxZsyt79m7+z9y7OrNlCD/g716mCZ+dsqmESPMFJzaViXiNW2PMbnTjHKHboIM0mp7MdPfsMlHi4Bx5XHhzc8K0VZQu94iwsUvdDdmVVA6XlrnM+zfEykjTMbSOCNq76Li22db3P+cYhZlrInTG5ozvq/aYvtS8vvJTcRht6LHNYiw/AN5drXF9geGl5OTHOUHgTZlQkd01idzEJIoaiUaXBNwIdrd7Cs3L7Laat7kCCC1vKgOj7BbnPfMVSYohoGq8TvYR3U7U9PkEZJjQJTi0gNO7gSuQDyc9tU7A7PMUmlf3LMMnyaBMfmGKF1TmVyq4fYHTMP9HB0W2fWGXxZ2UDujEr8JTgJ4P10C6reJZ8wNUa4c6ZpIitRrnAXel5gOWVQDnE0Z3+IbKhta6sS9ttq5qHp3oQum7ZxwW2xxLjbvqC1XGEVVJp0G6WQIKV2geEN4EuxO6S3e/av6DU99RlTPkHtzN1/7ojZ3zdYIUPpe52EnmZgyqW6YPXjrrhzGp6uIjwsuwuxhdCPK+FfgdP8Gns3sTvu7uDG/n6ko/RiviI9VPJ/ikPTXq/tWSA7dpyyvtmJ3rkh4KRe62rUdvXmGX/nXM+ipk8fca/D4Xzxc4vEEaIYBX+z5uYDWfQTQxhdikHqa2psU0FJ2S8P1ch89qhyyJ5Ni1Q/OvWLkNArxof7vZpV+BbmjlfGPb/48NTkzIHIKV6Hybk4Ihyl1t5OdKu5e/+xq8pM+gq0ycTdcrpIuj7t+CbpAC61t3ZFBeIH3VsvBhKfLh6azybGseV/BIsLL/Xv7uK/AKaMiUZJ3PO/m/rVqQQ9ZGfU3nWmR4O9/gFsDr7d8qpteS0yZkkQyXJtvdKHiPO3uYchpktaUmwNNcECVFEH7tL3zHFbkGseUNvd7AGbVka4XEI1WwH6x/S+HdIdyzGl5c3vzw1u+VP+8McKKMR3Z9KXf4JqM73Ju/hoeyCN5ZMETGUU1DWt5Ar+HhsvVJB+CldgbeGR9Sqh28t2btqr/jwai3LT6tZwmaB8JmUDzrpbK6EkujmjYKtX2N4W0j8QQZ2sO54jGeXEEmRp2ndTG2sMZaUci+6q44rROMEXGRgKSbuA4C703utdJEH5cMB153ZT3Tn+/i+9AN6mZk2JkzbebyaVLbINyAfOBu81IwR2mmQ1lUrOPwGc9M53SJk27Nxvyu93k1we5mHzN1jLh9GbXY5R1qcZsY3rEPxwXTgIZCmX4W8TwjuAW/xMeb0NL6w90dcUSeAqQ/RJvc4yAyAnw0eP/xG2ldbIzQLmrUp8pQROW2CN5u+3fORJbGTZgq1LkzaV4QRb7JorKucFpYphFhswbi9Qc2z2/Q7S4ERQMTvG7XeUl9E7w6QkzGME4xA0NGc5VfhdaTi7qvffmxZLDnD0io8umNWjBfSFK0nmd0e6P1+0rDG4y0Hw9oGsFLBLjMpFz8F8/yduAS/VS+z+uf7TSd4GDFD/TB4O3ObP0Ws2H91ldSWXpvfibjIW+Chve5tlVUBGaUCtyGLoYj6RZO6rCmcVTXPI88TDfjNs0Ur1WVQdu032r6DgQvkPDOj0nRrYC54hELZJRM47CDJ29Ga9XZo8ELkzjghdI73IbJGXDx7B4RzjUolCqLt3pFzhfu5c5trBQZHJ4JfI8H77fltI4a51XREB7pT/XIzVPj0aVjvP0wbIXZDZoVkT5zc0B4L7/0nab3x82F6IEsiD/UI5o8XFriBMwMwjH+oGOfwX+zW18s7PO7kWZOc1FwXr+h64ZwTxXiyfTKeBbSUg1Ep6j5Yv1RbCxZ902viXyUOdvRPD6e/B2b4C54r4uIEXphhVFl9Cdid4nmtza0RvSta2cTaLygDioJQxG5/o+NUpsd6S94T217A22xPufrp7OiVkqbcx5kXxENiTxmZIhH9yJeTyJUpt3sXHTBe3p+I3TCL3jCsJAsjX72AItcGYknHC1Sk/J2yN9f8H4WyzdSSF7Eo3S7ulI51JXqQb+QleUKpJEBGWLaGQ897q2uC95vczLyRpxrgE8ZfcIX3z4UdcH7hT5yvjAv8qUPGg+94P06fPFXl/jVF7zX9UbTyzupF7zXdXy3YYErDAeu9/9/6PXYCOu+1lQAAAAASUVORK5CYII=" alt="Eclael order 縫製 ロゴ">
+</div>
+
+<div class="hero"><div class="wrap">
+<div class="hero-eyebrow">ORDER SEWING SERVICE</div>
+<h1>好きな生地で、ぴったりサイズに。</h1>
+<div class="quotes">
+<span>「園指定のサイズがなかなか売ってない」</span>
+<span>「せっかくなら、子どもが好きな柄で揃えたい」</span>
+</div>
+<p>そんな時に、お好きな生地を持ち込んでオーダーできます。レッスンバッグや体操着袋、給食袋などの園・学校グッズから、トートバッグやクッションカバーなども製作しています。</p>
+</div></div>
+
+<section><div class="wrap">
+<div class="section-head"><div class="tag">WORKS</div><h2>製作例</h2></div>
+<div class="gallery">
+<figure class="wide"><img src="lp-images/set-car.jpg" alt=""><figcaption>のりもの柄で、クッションとバッグをおそろいに</figcaption></figure>
+<figure class="tall"><img src="lp-images/tote-red.jpg" alt=""><figcaption>お好きな生地でトートバッグ</figcaption></figure>
+<figure class="tall"><img src="lp-images/bag-teddy.jpg" alt=""><figcaption>くまさん柄の巾着バッグ</figcaption></figure>
+<figure class="tall"><img src="lp-images/cushion-car.jpg" alt=""><figcaption>座布団・クッションカバー</figcaption></figure>
+<figure class="tall"><img src="lp-images/pouch-badtzmaru.jpg" alt=""><figcaption>好きなキャラクター生地で巾着やポーチ</figcaption></figure>
+</div>
+<p class="note-line">「これも作れる?」というものがあれば、まずはお気軽にご相談ください。</p>
+</div></section>
+
+<section style="background:var(--paper);"><div class="wrap">
+<div class="section-head"><div class="tag">ABOUT</div><h2>好きな生地で、園グッズを。</h2></div>
+<p class="lead">園や学校でサイズ指定があったり、市販品だと好きな柄が見つからなかったり。</p>
+<p class="lead">せっかく毎日使うものだから、好きな生地で、使いやすいサイズに仕上げます。</p>
+<div class="why-list">
+<div class="why-item"><div class="why-mark">01</div><div><h3>生地は自由に持ち込みOK</h3><p>お好きな柄や、お手持ちの生地をお持ちください。園や学校から指定された生地がある場合も、そのままお持ちいただいて大丈夫です。</p></div></div>
+<div class="why-item"><div class="why-mark">02</div><div><h3>園・学校の指定サイズもOK</h3><p>「縦○cm×横○cm」などの指定に合わせて製作します。基本サイズより大きいものや、少し特殊な形・仕様の場合は、内容を確認してお見積もりします。</p></div></div>
+<div class="why-item"><div class="why-mark">03</div><div><h3>細かい指定もできます</h3><p>裏地やマチ、ポケット、ファスナー、名前テープなども追加できます。ワッペンの縫い付けや切り替えデザインなど、「こんな感じにしたい」があればご相談ください。</p></div></div>
+</div></div></section>
+
+<section><div class="wrap">
+<div class="section-head"><div class="tag">MENU &amp; PRICE</div><h2>基本料金</h2></div>
+<table class="price-table">
+<tr><th>アイテム</th><th style="text-align:right;">料金</th></tr>
+<tr><td>ランチョンマット</td><td class="amount">1,500円〜</td></tr>
+<tr><td>コップ・給食袋</td><td class="amount">1,500円〜</td></tr>
+<tr><td>お弁当袋</td><td class="amount">3,000円〜</td></tr>
+<tr><td>上靴袋</td><td class="amount">3,500円〜</td></tr>
+<tr><td>体操着袋</td><td class="amount">3,500円〜</td></tr>
+<tr><td>巾着・ポーチ</td><td class="amount">3,000円〜</td></tr>
+<tr><td>大人・子どもエプロン</td><td class="amount">5,000円〜</td></tr>
+<tr><td>トートバッグ</td><td class="amount">5,500円〜</td></tr>
+<tr><td>レッスンバッグ</td><td class="amount">6,000円〜</td></tr>
+<tr><td>ピアニカバッグ</td><td class="amount">6,000円〜</td></tr>
+<tr><td>お昼寝布団バッグ</td><td class="amount">6,000円〜</td></tr>
+</table>
+<p class="price-note">※基本料金は、裏地・マチなどがないシンプルな仕様での料金です。</p>
+
+<div style="margin-top:36px;">
+<div class="section-head" style="margin-bottom:8px;"><h2 style="font-size:18px;">+ OPTION</h2></div>
+<p class="lead">もう少し使いやすくしたい、園の指定に合わせたい、という場合はこちらから追加できます。</p>
+<div class="option-grid" style="margin-top:16px;">
+<div class="row"><div class="name">裏地あり</div><div class="price">+1,500円〜</div></div>
+<div class="row"><div class="name">マチあり</div><div class="price">+500円〜</div></div>
+<div class="row"><div class="name">ファスナー・チャック</div><div class="price">+1,000円〜</div></div>
+<div class="row"><div class="name">切り替えデザイン</div><div class="price">+500円〜</div></div>
+<div class="row"><div class="name">内ポケット</div><div class="price">+500円〜</div></div>
+<div class="row"><div class="name">外ポケット</div><div class="price">+700円〜</div></div>
+<div class="row"><div class="name">持ち手追加</div><div class="price">+500円〜</div></div>
+<div class="row"><div class="name">Dカン取り付け</div><div class="price">+500円〜</div></div>
+<div class="row"><div class="name">接着芯あり</div><div class="price">+500円〜</div></div>
+<div class="row"><div class="name">名前テープ縫い付け</div><div class="price">+500円</div></div>
+<div class="row"><div class="name">ワッペン縫い付け(1個)</div><div class="price">+800円〜</div></div>
+<div class="row"><div class="name">複雑な形のワッペン(1個)</div><div class="price">+1,200円〜</div></div>
+<div class="row"><div class="name">リバーシブル仕様</div><div class="price">+1,000円〜</div></div>
+<div class="row"><div class="name">特殊仕様・特殊な園指定</div><div class="price">要見積もり</div></div>
+</div></div>
+
+<div class="discount-box"><div>一式オーダー割<br><span style="font-size:12px;opacity:.7;">合計10,000円以上のご注文で</span></div><div class="num">500円OFF</div></div>
+</div></section>
+
+<section style="background:var(--paper);"><div class="wrap">
+<div class="section-head"><div class="tag">FABRIC &amp; SIZE</div><h2>生地とサイズについて</h2></div>
+<div class="info-cards">
+<div class="info-card"><h3>生地はお好きなものをご持参ください</h3><p>作りたいものに合わせて、お好きな生地をお持ちください。紐・Dカン・ファスナー・名前テープなども、お持ちのものがあれば一緒にお持ちいただけます。</p><p>必要な材料はこちらで用意することもできます。その場合は、別途材料費をいただきます。</p></div>
+<div class="info-card"><h3>もし生地が足りなかったら</h3><p>実際にサイズを確認してみて「少し足りない!」となった場合は、裏地を別の生地にしたり、生地を買い足したりして調整できます。</p></div>
+<div class="info-card"><h3>生地選びからお願いしたい方へ</h3><p>「どのくらい買えばいいかわからない」「生地選びからお願いしたい」という場合は、買い出しからお任せいただくこともできます。</p><p>買い出し代行 1,500円〜+材料費</p></div>
+<div class="info-card"><h3>サイズについて</h3><p>一般的なサイズを基本にしています。レッスンバッグ 30×40cm、上履き袋 20×30cm、体操着袋 35×45cmなど。もちろん、園・学校の指定サイズに合わせて変更できます。</p><p>基本サイズを大きく超える場合(目安:縦・横どちらか+10cm以上)は、サイズに応じて+500円〜となります。</p></div>
+</div></div></section>
+
+<section><div class="wrap">
+<div class="section-head"><div class="tag">FLOW</div><h2>ご注文の流れ</h2></div>
+<div class="flow">
+<div class="flow-step"><div class="flow-num">01</div><div class="flow-body">
+<h3>DMでご相談</h3>
+<p>まずは、</p>
+<ul><li>作りたいもの</li><li>サイズ</li><li>生地を持っているかどうか</li></ul>
+<p>をDMで教えてください。園や学校からもらったサイズ指定のプリントがあれば、そのまま写真を送っていただいてもOKです。</p>
+</div></div>
+<div class="flow-step"><div class="flow-num">02</div><div class="flow-body"><h3>お見積もり</h3><p>サイズや仕様を確認して、料金をご案内します。「裏地をつけたい」「ここにポケットがほしい」などのご希望も、この時にお伝えください。</p></div></div>
+<div class="flow-step"><div class="flow-num">03</div><div class="flow-body"><h3>生地・材料をご準備</h3><p>生地や、お持ちの材料をお預かりします。こちらで材料を用意する場合や、買い出し代行をご希望の場合もご相談ください。</p></div></div>
+<div class="flow-step"><div class="flow-num">04</div><div class="flow-body"><h3>製作</h3><p>ご発注から2週間〜を目安に製作します。時期やご注文内容によって少しお時間をいただく場合があります。</p></div></div>
+</div></div></section>
+
+<section style="background:var(--paper);"><div class="wrap">
+<div class="section-head"><div class="tag">NOTE</div><h2>ご注文前にご確認ください</h2></div>
+<dl class="policy">
+<dt>納期について</dt><dd>ご発注から2週間〜が目安です。入園・入学シーズンなど、ご注文が重なる時期は通常よりお時間をいただく場合があります。</dd>
+<dt>キャンセルについて</dt><dd>製作開始後、特に生地を裁断した後のキャンセルについては、材料費などの実費をいただく場合があります。</dd>
+<dt>お支払いについて</dt><dd>お支払い方法やタイミングは、お見積もりの際にご案内します。</dd>
+</dl></div></section>
+
+<div class="cta"><div class="wrap">
+<h2>まずはお気軽にDMください</h2>
+<p>「これ作れるかな?」くらいでも大丈夫です。作りたいもの・サイズ・生地の有無を送っていただければ、内容を確認してお見積もりします。</p>
+<a class="cta-button" href="#">DMで相談する</a>
+<div class="cta-sub">Instagram DMから受付中です。</div>
+</div></div>
+
+<footer>Eclael nail studio ── オーダー縫製</footer>
+</body>
+</html>
